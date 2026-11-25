@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f7f0ec">
+<title>24 días para ti · Manolito & Noe</title>
+<style>
+:root{--paper:#fbf7f4;--cream:#f2e8e2;--rose:#d8b6b2;--rose2:#ead6d1;--wine:#754955;--ink:#49383a;--gold:#b89b70;--muted:#927e7d}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Georgia,'Times New Roman',serif}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:radial-gradient(#c8aaa2 .65px,transparent .65px);background-size:17px 17px}
+main{width:min(980px,92%);margin:auto;padding:42px 0 60px;position:relative}
+.hero{text-align:center;padding:36px 18px 30px}
+.eyebrow{font:11px/1.5 Arial,sans-serif;letter-spacing:.28em;text-transform:uppercase;color:var(--gold)}
+h1{font-weight:400;font-size:clamp(35px,7vw,66px);line-height:1.06;margin:18px auto 12px;color:var(--wine)}
+.subtitle{font-size:clamp(16px,2.5vw,20px);font-style:italic;color:var(--muted);margin:0 auto 22px}
+.names{font:12px Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--wine)}
+.heart{color:#b77f87;font-size:20px;margin:12px}
+.intro{max-width:560px;margin:22px auto 0;font-size:16px;line-height:1.7;color:#796768}
+.rule{height:1px;width:90px;background:var(--gold);margin:28px auto}
+.section-title{text-align:center;font-size:25px;font-weight:400;color:var(--wine);margin:0 0 8px}
+.section-note{text-align:center;color:var(--muted);font:12px Arial,sans-serif;letter-spacing:.08em;margin:0 0 26px}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.door{border:1px solid #e4d4ce;background:linear-gradient(145deg,#fffdfa,#f4e9e5);min-height:130px;border-radius:5px;color:var(--wine);cursor:pointer;position:relative;padding:16px 8px;transition:transform .2s,box-shadow .2s;box-shadow:0 5px 16px #75505b0b}
+.door:hover:not(:disabled){transform:translateY(-3px);box-shadow:0 9px 22px #75505b18}
+.door:disabled{cursor:not-allowed;opacity:.62}
+.door .num{display:block;font-size:35px;font-weight:400;line-height:1.1}
+.door .label{display:block;margin-top:9px;font:10px Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.door .tiny{display:block;margin-top:6px;color:#b58e8c;font-size:14px}
+.door.opened{background:linear-gradient(145deg,#f3e4e1,#ead4d0);border-color:#d7b9b3}
+.door.today{outline:1px solid var(--gold);outline-offset:2px}
+.lock{font-size:12px}
+.footer{text-align:center;color:var(--muted);font:11px/1.7 Arial,sans-serif;letter-spacing:.04em;margin-top:32px}
+.overlay{display:none;position:fixed;inset:0;background:#34252bb8;z-index:5;padding:18px;align-items:center;justify-content:center}
+.overlay.show{display:flex}
+.modal{width:min(480px,100%);background:var(--paper);padding:34px 28px 28px;border:1px solid #d9c5bd;box-shadow:0 20px 70px #21151a55;text-align:center;position:relative}
+.modal .day{font:10px Arial,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--gold)}
+.modal h2{font-weight:400;font-size:32px;color:var(--wine);margin:13px 0}
+.modal p{font-size:17px;line-height:1.75;color:#705d5e;white-space:pre-line}
+.close{margin-top:16px;background:var(--wine);color:#fff;border:0;padding:12px 25px;font:11px Arial,sans-serif;letter-spacing:.15em;text-transform:uppercase;cursor:pointer}
+.small{font:11px Arial,sans-serif;color:var(--muted);margin-top:17px}
+@media(max-width:620px){main{padding-top:18px}.hero{padding-top:28px}.grid{grid-template-columns:repeat(3,1fr);gap:9px}.door{min-height:112px;padding:12px 5px}.door .num{font-size:31px}.door .label{font-size:9px}}
+@media(max-width:380px){.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<main>
+  <header class="hero">
+    <div class="eyebrow">Un pequeño detalle para alguien muy especial</div>
+    <div class="heart">♡</div>
+    <h1>24 días para<br>recordarte lo especial que eres</h1>
+    <p class="subtitle">Un diciembre lleno de pequeñas sorpresas</p>
+    <div class="names">Tú Manolito <span style="color:#b89b70">×</span> Mi Noe</div>
+    <div class="rule"></div>
+    <p class="intro">No hace falta que sea Navidad para celebrar lo bonito que es tenerte en mi vida. Cada día guarda unas palabras, un recuerdo o una pequeña sorpresa para ti. Espero que te guste abrirlas tanto como a mí prepararlas.</p>
+  </header>
+
+  <section aria-label="Calendario de Adviento">
+    <h2 class="section-title">Nuestro calendario</h2>
+    <p class="section-note">UNA SORPRESA PARA CADA DÍA · DEL 1 AL 24 DE DICIEMBRE</p>
+    <div class="grid" id="calendar"></div>
+  </section>
+  <footer class="footer">Hecho con cariño, para Noe · Diciembre 2026<br>♡</footer>
+</main>
+
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <div class="day" id="modalDay">DÍA 1</div>
+    <h2 id="modalTitle">Una cosita para ti</h2>
+    <p id="modalText"></p>
+    <div id="extra"></div>
+    <button class="close" id="close">Cerrar</button>
+  </div>
+</div>
+
+<script>
+/* PERSONALIZA AQUÍ: cambia los títulos y mensajes. Puedes pegar enlaces a fotos o vídeos
+   en el campo "link". Si lo dejas vacío, solo aparecerá el mensaje. */
+const surprises = [
+ ["Una razón para sonreír","Porque incluso los días normales se vuelven especiales cuando estás tú. Gracias por hacerlos más bonitos.",""],
+ ["Un recuerdo nuestro","Hoy toca acordarnos de algún momento que nos hizo felices. Yo guardo muchos de esos contigo.",""],
+ ["Tu canción","Pon esa canción que te recuerde a nosotros y regálate unos minutos para disfrutarla.",""],
+ ["Tres cosas que adoro de ti","Tu forma de ser, la manera en la que haces especiales las pequeñas cosas y todo eso que te hace ser tú.",""],
+ ["Un vale por…","Un abrazo largo, una tarde juntos o un plan elegido por ti. Este vale se puede canjear cuando quieras.",""],
+ ["Una foto especial","Aquí puedes añadir una foto vuestra que te saque una sonrisa.",""],
+ ["Un mensaje sorpresa","Ojalá hoy te acuerdes de lo increíble que eres y de lo mucho que te mereces.",""],
+ ["Nuestro próximo plan","Hoy tienes derecho a elegir un plan para hacer juntos. Yo pongo las ganas.",""],
+ ["Un pequeño agradecimiento","Gracias por cada conversación, cada risa y cada momento compartido. Los valoro muchísimo.",""],
+ ["Un recuerdo favorito","Piensa en uno de nuestros días favoritos. Yo espero que todavía nos queden muchísimos por vivir.",""],
+ ["Un piropo sincero","Tienes una forma única de iluminar cualquier sitio al que llegas. No dejes que se te olvide.",""],
+ ["Un ratito para ti","Hoy la sorpresa es que te dediques un momento a algo que te haga feliz. Te lo mereces.",""],
+ ["Mitad del calendario","Ya vamos por la mitad y todavía quedan muchas cositas. Gracias por formar parte de mis días.",""],
+ ["Una promesa pequeñita","Prometo seguir buscando motivos para hacerte sonreír y planes para compartir contigo.",""],
+ ["Nuestro sitio","Hay lugares que se vuelven especiales por la persona con la que los compartes. ¿Cuál es el nuestro?",""],
+ ["Una playlist","Añade aquí el enlace a una playlist que hayas preparado para ella.",""],
+ ["Un deseo para nosotros","Que nunca nos falten las ganas de reír, descubrir sitios y crear recuerdos juntos.",""],
+ ["Una sorpresa pendiente","Hoy puedes escribir aquí una pista de un regalo o una actividad que tengas preparada.",""],
+ ["Lo que más admiro de ti","Admiro tu manera de afrontar las cosas y esa esencia tuya que no se parece a la de nadie.",""],
+ ["Una cita","Reserva este día para un plan juntos. El destino puede ser sorpresa.",""],
+ ["Una foto que me encanta","Añade aquí otra foto especial y cuéntale por qué la has elegido.",""],
+ ["Un mensaje para guardar","Si algún día necesitas un recordatorio bonito, vuelve a esta casilla: eres alguien muy especial para mí.",""],
+ ["Ya casi llega…","Mañana queda la última sorpresa. Hoy solo quiero darte las gracias por cada instante compartido.",""],
+ ["Para mi Noe","Mi Noe: estos 24 días solo son una pequeña forma de recordarte lo importante que eres para mí. Gracias por ser tú, por cada sonrisa y por todos los recuerdos que todavía nos quedan por crear. Ojalá esto te haya hecho sentir tan especial como eres. Con muchísimo cariño, tu Manolito. ♡",""]
+];
+
+const calendar = document.getElementById('calendar');
+const overlay = document.getElementById('overlay');
+const now = new Date();
+const isDecember2026 = now.getFullYear() === 2026 && now.getMonth() === 11;
+const dayNow = isDecember2026 ? now.getDate() : (now > new Date(2026,11,24) ? 25 : 0);
+
+surprises.forEach((item,index)=>{
+  const day=index+1;
+  const unlocked=day<=dayNow;
+  const btn=document.createElement('button');
+  btn.className='door'+(unlocked?' opened':'')+(day===dayNow?' today':'');
+  btn.disabled=!unlocked;
+  btn.setAttribute('aria-label',unlocked?`Abrir día ${day}`:`Día ${day}, todavía cerrado`);
+  btn.innerHTML=`<span class="num">${String(day).padStart(2,'0')}</span><span class="label">${unlocked?'Descubrir':'Todavía no'}</span><span class="tiny">${unlocked?'♡':'✧'}</span>`;
+  btn.addEventListener('click',()=>{
+    document.getElementById('modalDay').textContent=`DÍA ${day} · DICIEMBRE`;
+    document.getElementById('modalTitle').textContent=item[0];
+    document.getElementById('modalText').textContent=item[1];
+    const extra=document.getElementById('extra');
+    extra.innerHTML='';
+    if(item[2]){
+      const a=document.createElement('a');a.href=item[2];a.target='_blank';a.rel='noopener';a.textContent='Abrir tu sorpresa';a.style='display:inline-block;margin-top:12px;color:#754955';extra.appendChild(a);
+    }
+    overlay.classList.add('show');
+  });
+  calendar.appendChild(btn);
+});
+document.getElementById('close').addEventListener('click',()=>overlay.classList.remove('show'));
+overlay.addEventListener('click',e=>{if(e.target===overlay)overlay.classList.remove('show')});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')overlay.classList.remove('show')});
+</script>
+</body>
+</html>
